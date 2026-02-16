@@ -39,10 +39,27 @@
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600" rel="stylesheet" />
 
-        @vite(['resources/js/app.ts', "resources/js/pages/{$page['component']}.vue"])
+        @vite(['resources/app.ts', "resources/pages/{$page['component']}.vue"])
         @inertiaHead
     </head>
     <body class="font-sans antialiased">
+        <native:top-bar :title="config('app.name', 'Laravel')" />
+
+        <native:bottom-nav>
+            <native:bottom-nav-item id="dashboard" icon="dashboard" label="Dashboard" :url="route('dashboard')" :active="request()->routeIs('dashboard')" />
+            <native:bottom-nav-item id="profile" icon="person" label="Profile" :url="route('profile.edit')" :active="request()->routeIs('profile.edit', 'appearance.edit', 'user-password.edit', 'two-factor.show')" />
+        </native:bottom-nav>
+
+        <native:side-nav>
+            <native:side-nav-header :title="config('app.name', 'Laravel')" :subtitle="auth()->user()?->email" icon="person" />
+            <native:side-nav-item id="dashboard" label="Dashboard" icon="dashboard" :url="route('dashboard')" :active="request()->routeIs('dashboard')" />
+            <native:side-nav-group heading="Settings">
+                <native:side-nav-item id="profile" label="Profile" icon="person" :url="route('profile.edit')" :active="request()->routeIs('profile.edit')" />
+                <native:side-nav-item id="appearance" label="Appearance" icon="palette" :url="route('appearance.edit')" :active="request()->routeIs('appearance.edit')" />
+                <native:side-nav-item id="password" label="Password" icon="lock" :url="route('user-password.edit')" :active="request()->routeIs('user-password.edit')" />
+            </native:side-nav-group>
+        </native:side-nav>
+
         @inertia
     </body>
 </html>

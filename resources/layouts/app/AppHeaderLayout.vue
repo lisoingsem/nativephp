@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import AppContent from '@/components/AppContent.vue';
+import AppHeader from '@/components/AppHeader.vue';
 import AppShell from '@/components/AppShell.vue';
-import AppSidebar from '@/components/AppSidebar.vue';
-import AppSidebarHeader from '@/components/AppSidebarHeader.vue';
+import BottomNav from '@/components/BottomNav.vue';
 import type { BreadcrumbItem } from '@/types';
 
 type Props = {
@@ -15,11 +15,11 @@ withDefaults(defineProps<Props>(), {
 </script>
 
 <template>
-    <AppShell variant="sidebar">
-        <AppSidebar />
-        <AppContent variant="sidebar" class="overflow-x-hidden">
-            <AppSidebarHeader :breadcrumbs="breadcrumbs" />
+    <AppShell class="flex-col">
+        <AppHeader :breadcrumbs="breadcrumbs" />
+        <AppContent class="pb-16 lg:pb-0">
             <slot />
         </AppContent>
+        <BottomNav />
     </AppShell>
 </template>
