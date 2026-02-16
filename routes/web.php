@@ -1,19 +1,17 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
 use Inertia\Inertia;
-
-use Inertia\Inertia;
-use App\Http\Controllers\NativeFeatureController;
+use Laravel\Fortify\Features;
 
 Route::get('/', function () {
-    return Inertia::render('Home');
-});
+    return Inertia::render('Welcome', [
+        'canRegister' => Features::enabled(Features::registration()),
+    ]);
+})->name('home');
 
-Route::get('/features', function () {
-    return Inertia::render('Features');
-});
+Route::get('dashboard', function () {
+    return Inertia::render('Dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::post('/native/vibrate', [NativeFeatureController::class, 'vibrate']);
-Route::post('/native/notify', [NativeFeatureController::class, 'notify']);
+require __DIR__.'/settings.php';
