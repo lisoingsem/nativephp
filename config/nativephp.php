@@ -1,76 +1,296 @@
 <?php
 
 return [
-    /**
-     * The version of your app.
-     * It is used to determine if the app needs to be updated.
-     * Increment this value every time you release a new version of your app.
-     */
+
+    /*
+    |--------------------------------------------------------------------------
+    | App Version Name
+    |--------------------------------------------------------------------------
+    |
+    | This is the human-readable version of your app (e.g. "1.0.0"). It is
+    | used as the versionName in Android builds and may be displayed in
+    | the app or console to determine the current app release version.
+    |
+    */
+
     'version' => env('NATIVEPHP_APP_VERSION', '1.0.0'),
 
-    /**
-     * The ID of your application. This should be a unique identifier
-     * usually in the form of a reverse domain name.
-     * For example: com.nativephp.app
-     */
-    'app_id' => env('NATIVEPHP_APP_ID', 'com.nativephp.app'),
+    /*
+    |--------------------------------------------------------------------------
+    | App Version Code
+    |--------------------------------------------------------------------------
+    |
+    | This is the internal numeric version code used for Play Store builds.
+    | It must increase with every release. This is used as versionCode in
+    | Android builds and is required for publishing updates to the store.
+    |
+    */
 
-    /**
-     * If your application allows deep linking, you can specify the scheme
-     * to use here. This is the scheme that will be used to open your
-     * application from within other applications.
-     * For example: "nativephp"
-     *
-     * This would allow you to open your application using a URL like:
-     * nativephp://some/path
-     */
+    'version_code' => env('NATIVEPHP_APP_VERSION_CODE', 1),
+
+    /*
+    |--------------------------------------------------------------------------
+    | App ID
+    |--------------------------------------------------------------------------
+    |
+    | This is the unique ID of your application used by Android to identify
+    | the app package. It is typically written in reverse domain format,
+    | such as "com.nativephp.app".
+    |
+    */
+
+    'app_id' => env('NATIVEPHP_APP_ID'),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Deeplink Scheme
+    |--------------------------------------------------------------------------
+    |
+    | The deep link scheme to use for opening your app from URLs. For
+    | example, using the scheme "nativephp" allows links like:
+    | nativephp://some/path to open the app directly.
+    |
+    */
+
     'deeplink_scheme' => env('NATIVEPHP_DEEPLINK_SCHEME'),
 
-    /**
-     * The author of your application.
-     */
-    'author' => env('NATIVEPHP_APP_AUTHOR'),
+    /*
+    |--------------------------------------------------------------------------
+    | Deeplink Host
+    |--------------------------------------------------------------------------
+    |
+    | The domain name to associate with verified HTTPS links and NFC tags.
+    | This allows URLs like https://your-host.com/path to open your app
+    | when tapped from an NFC tag or clicked from the browser.
+    |
+    */
 
-    /**
-     * The copyright notice for your application.
-     */
-    'copyright' => env('NATIVEPHP_APP_COPYRIGHT'),
+    'deeplink_host' => env('NATIVEPHP_DEEPLINK_HOST'),
 
-    /**
-     * The description of your application.
-     */
-    'description' => env('NATIVEPHP_APP_DESCRIPTION', 'An awesome app built with NativePHP'),
+    /*
+    |--------------------------------------------------------------------------
+    | Start URL
+    |--------------------------------------------------------------------------
+    |
+    | The initial URL/path to load when the app starts. This should be a
+    | path relative to the app root (e.g., "/dashboard", "/onboarding").
+    | If not set, the app will load the root path ("/").
+    |
+    */
 
-    /**
-     * The Website of your application.
-     */
-    'website' => env('NATIVEPHP_APP_WEBSITE', 'https://nativephp.com'),
+    'start_url' => env('NATIVEPHP_START_URL', '/'),
 
-    /**
-     * The default service provider for your application. This provider
-     * takes care of bootstrapping your application and configuring
-     * any global hotkeys, menus, windows, etc.
-     */
-    'provider' => \App\Providers\NativeServiceProvider::class,
+    /*
+    |--------------------------------------------------------------------------
+    | Development Team (iOS)
+    |--------------------------------------------------------------------------
+    |
+    | The Apple Developer Team ID to use for code signing iOS apps. This is
+    | automatically detected from your installed certificates, but you can
+    | override it here if needed. Find your Team ID in your Apple Developer
+    | account under Membership details.
+    |
+    */
+    'development_team' => env('NATIVEPHP_DEVELOPMENT_TEAM'),
 
-    // ... (rest of the mobile v3 config)
+    /*
+    |--------------------------------------------------------------------------
+    | Environment Keys to Clean Up
+    |--------------------------------------------------------------------------
+    |
+    | These are keys that will be removed from the .env file during app
+    | bundling to prevent secrets or development credentials from being
+    | leaked. Wildcards are supported (e.g. AWS_* or *_SECRET).
+    |
+    */
+
+    'cleanup_env_keys' => [
+        'AWS_*',
+        'GITHUB_*',
+        'DO_SPACES_*',
+        '*_SECRET',
+        'DB_PASSWORD',
+        'DB_USERNAME',
+    ],
+
+    // /**
+    //  * The Website of your application.
+    //  */
+    // 'website' => env('NATIVEPHP_APP_WEBSITE', 'https://nativephp.com'),
+
+    // /**
+    //  * The default service provider for your application. This provider
+    //  * takes care of bootstrapping your application and configuring
+    //  * any global hotkeys, menus, windows, etc.
+    //  */
+    // 'provider' => \App\Providers\NativeServiceProvider::class,
+
+    /*
+    |--------------------------------------------------------------------------
+    | Development Server Configuration
+    |--------------------------------------------------------------------------
+    |
+    | Configuration for the NativePHP development server that allows hot
+    | reloading of mobile applications during development.
+    |
+    */
+
     'server' => [
+        // HTTP server port for serving the app
         'http_port' => env('NATIVEPHP_HTTP_PORT', 3000),
+
+        // WebSocket server port for hot reload communication
         'ws_port' => env('NATIVEPHP_WS_PORT', 8081),
+
+        // Service name advertised on `the network
         'service_name' => env('NATIVEPHP_SERVICE_NAME', 'NativePHP Server'),
+
+        // Service type for mDNS advertisement
         'service_type' => '_http._tcp',
+
+        // Public directory to serve (relative to Laravel root)
         'public_path' => env('NATIVEPHP_PUBLIC_PATH', 'public'),
+
+        // Build output directory (where the ZIP will be created)
         'build_path' => env('NATIVEPHP_BUILD_PATH', 'storage/app/native-build'),
+
+        // Automatically open browser with QR code when server starts
         'open_browser' => env('NATIVEPHP_OPEN_BROWSER', true),
+
+        // Watch these directories for changes
         'watch_paths' => [
             'app',
             'resources',
             'routes',
             'public/build',
         ],
+
+        // File extensions to watch for changes
         'watch_extensions' => ['php', 'blade.php', 'js', 'css', 'ts', 'vue', 'json'],
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Hot Reload Configuration
+    |--------------------------------------------------------------------------
+    */
+    'hot_reload' => [
+        'watch_paths' => [
+            'app',
+            'resources',
+            'routes',
+            'config',
+            'public',
+        ],
+
+        'exclude_patterns' => [
+            '\.git',
+            'storage',
+            'tests',
+            'nativephp',
+            'credentials',
+            'node_modules',
+            '\.swp',
+            '\.tmp',
+            '~',
+            '\.log',
+        ],
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | App Store Connect API Configuration
+    |--------------------------------------------------------------------------
+    |
+    | Configuration for uploading apps to App Store Connect using the API.
+    | These values are used for automated uploads during the package process.
+    | Store sensitive data in environment variables for security.
+    |
+    */
+    'app_store_connect' => [
+        'api_key' => env('APP_STORE_API_KEY'),
+        'api_key_id' => env('APP_STORE_API_KEY_ID'),
+        'api_issuer_id' => env('APP_STORE_API_ISSUER_ID'),
+        'app_name' => env('APP_STORE_APP_NAME'),
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Permissions
+    |--------------------------------------------------------------------------
+    |
+    | Here you may enable or disable specific native features for your app.
+    | Setting a permission to true allows NativePHP to request the necessary
+    | access from the operating system at runtime (e.g., for NFC, biometrics,
+    | or push notifications).
+    |
+    | For iOS, you can also provide a custom string that explains why your
+    | app needs this permission. This text will be shown to users when they
+    | are prompted to grant access. If you provide a string, the permission
+    | will be enabled automatically.
+    |
+    | Android will interpret any string value as 'true', but the custom text
+    | is only used on iOS (Android doesn't support permission reasons).
+    |
+    | Examples:
+    |   'camera' => true,  // Uses default message
+    |   'camera' => 'We need camera access to scan QR codes for login.',
+    |   'camera' => false, // Permission disabled
+    |
+    | Make sure you run `php artisan native:install --force` after changing.
+    |
+    */
+
     'permissions' => [
+        //
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | iPad Support
+    |--------------------------------------------------------------------------
+    |
+    | Enable or disable iPad support for your iOS app. When enabled, your app
+    | will support iPad devices and all iPad orientations (portrait, upside down,
+    | landscape left, and landscape right) as required by Apple's App Store
+    | guidelines. When disabled, your app will be iPhone-only.
+    |
+    | Note: Once an app is deployed to the App Store with iPad
+    | support you cannot revoke this action.
+    |
+    */
+    'ipad' => false,
+
+    /*
+    |--------------------------------------------------------------------------
+    | Device Orientation Support
+    |--------------------------------------------------------------------------
+    |
+    | Configure which orientations your app supports on different devices.
+    | This will be applied during the build process to set appropriate
+    | constraints in Info.plist (iOS) and AndroidManifest.xml (Android).
+    |
+    | For iPhone and Android, you can configure specific orientations.
+    | For iPad, when enabled above, all orientations are automatically supported
+    | as required by Apple's App Store guidelines.
+    |
+    | If all orientations are false for iPhone, the build will fail with a
+    | helpful error message. If all orientations are false for Android, the
+    | build will fail with a helpful error message.
+    |
+    */
+    'orientation' => [
+        'iphone' => [
+            'portrait' => true,
+            'upside_down' => false,
+            'landscape_left' => false,
+            'landscape_right' => false,
+        ],
+        'android' => [
+            'portrait' => true,
+            'upside_down' => false,
+            'landscape_left' => false,
+            'landscape_right' => false,
+        ],
     ],
 ];

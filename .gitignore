@@ -6,9 +6,9 @@
 /public/storage
 /storage/*.key
 /storage/pail
-/resources/js/actions
-/resources/js/routes
-/resources/js/wayfinder
+/resources/actions
+/resources/routes
+/resources/wayfinder
 /vendor
 .DS_Store
 .env

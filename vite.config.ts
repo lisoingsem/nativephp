@@ -14,6 +14,8 @@ const __dirname = dirname(__filename);
 export default defineConfig({
     resolve: {
         alias: {
+            '@/actions': path.resolve(__dirname, './resources/wayfinder/actions'),
+            '@/routes': path.resolve(__dirname, './resources/wayfinder/routes'),
             '@': path.resolve(__dirname, './resources'),
         },
     },
@@ -27,6 +29,7 @@ export default defineConfig({
         nativephpMobile(),
         tailwindcss(),
         wayfinder({
+            path: 'resources/wayfinder',
             formVariants: true,
         }),
         vue({
