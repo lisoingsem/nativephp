@@ -186,7 +186,9 @@
     }
 
     /* Allow selection in inputs/textareas */
-    input, textarea, [contenteditable="true"] {
+    input,
+    textarea,
+    [contenteditable='true'] {
         user-select: text;
         -webkit-user-select: text;
     }
